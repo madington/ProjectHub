@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "573eae017a8f9455796ed5973a99bc9c",
+    "hash": "f2764270313316d2829f4a0ba25327f5",
     "packages": [
         {
             "name": "elephant418/model418",

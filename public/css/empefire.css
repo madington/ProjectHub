@@ -1,0 +1,55 @@
+html {
+	font-size: 100%;
+}
+
+ol, ol:before, ol:after,
+ol *, ol *:before, ol *:after {
+	-webkit-box-sizing: initial;
+	-moz-box-sizing: initial;
+	box-sizing: initial;
+}
+
+body > button.btn,
+body > a button.btn {
+	margin: 0 0 40px 40px;
+}
+
+body > a:hover {
+	text-decoration: none;
+}
+
+body div#myModal.modal.fade.in {
+	-webkit-align-items: center;
+	-webkit-justify-content: center;
+	align-items: center;
+	display: -webkit-flex !important;
+	display: flex !important;
+	justify-content: center;
+}
+
+body {
+	background: #323334;
+	margin: 0 auto;
+	max-width: 980px;
+	width: 80%;
+}
+h1, ol {
+	color:  #fdd666;
+}
+h1 {
+	text-align: center;
+}
+a, a:hover {
+	color: #02819F;
+}
+.timeline,
+.timeline:before,
+.tl-node:before,
+.timeline-node:before {
+	background: #323334;
+	border-color: #fdd666;
+}
+.tl-node,
+.timeline-node {
+	padding-left: 2em;
+}

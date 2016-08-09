@@ -1,13 +1,26 @@
 <!doctype html>
-<html lang="en">
+<html lang="no">
 <head>
-    <meta charset="UTF-8">
-    <title>Projects Timeline</title>
-    <meta name="viewport" content="width=device-width"/>
-    <link rel="stylesheet" type="text/css" href="<?= $application->publicBaseUri ?>/css/style.css" media="all"/>
+    <meta charset="utf-8">
+    <title>Firelabs</title>
+    <meta name="viewport" content="width=device-width">
+
+  	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+
+    <link rel="stylesheet" type="text/css" href="../projecthub<?= $application->publicBaseUri ?>/css/style.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../projecthub<?= $application->publicBaseUri ?>/css/empefire.css" media="all">
+  	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  	<script src="//code.jquery.com/jquery-latest.min.js"></script>
+  	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+
 </head>
 <body>
-    <h1>Projects Timeline</h1>
+
+	<h1><img src="//firecracker.no/images/empefire-logo.png" alt="Firelabs logotyp" title="Firelabs logotyp"></h1>
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+      New project
+    </button>
     <ol class="timeline">
     <?php foreach ($projectList as $project) : ?>
         <li class="timeline-node">
@@ -18,5 +31,30 @@
         </li>
     <?php endforeach; ?>
     </ol>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <form action="add.php" method="post">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Add a project</h4>
+          </div>
+          <div class="modal-body">
+              <div class="form-group">
+                <label for="recipient-name" class="control-label">Name of the new project</label>
+                <input type="text" name="title" class="form-control" id="new-project">
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="reset" class="btn btn-default">Reset</button>
+            <button type="submit" class="btn btn-success">Save</button>
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
+
 </body>
 </html>
