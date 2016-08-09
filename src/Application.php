@@ -72,8 +72,15 @@ class Application extends Factory
             $value = Yaml::parse(file_get_contents($file));
             $note = array(
                 'stamp' => $data['stamp'],
-                'content' => $data['content']
+                'content' => $data['content'],
             );
+            if (isset($data['link-title']) && !empty($data['link-title'])) {
+                $noteLinks = [];
+                for ($i=0; $i < count($data['link-title']); $i++) {
+                    $note['links'][$data['link-title'][$i]] = $data['link-url'][$i];
+                }
+            }
+
             array_unshift($value['timeline'], $note);
             $yaml = Yaml::dump($value);
             file_put_contents($file, $yaml);
@@ -81,46 +88,6 @@ class Application extends Factory
         } catch (ParseException $e) {
             printf("Unable to parse the YAML string: %s", $e->getMessage());
         }
-        /*
-        $project = $this->newInstance('Project')->query()->fetchById($data['project']);
-        echo "<pre>";
-        print_r($project);
-        */
-        //print_r(array('View Notes' => '#', 'View Demo' => '#'));
-        /*
-        $note = $this->newInstance('Note')
-            ->set('stamp', 'August 9th, 2016')
-            ->set('content', 'Super awesome note');
-        */
-
-        /*
-        $project->setNote();
-        */
-        /*
-        $yaml = Yaml::dump($array);
-        print_r($yaml);
-
-        try {
-            $value = Yaml::parse(file_get_contents('data/sample.yml'));
-            print_r($value);
-            $note = array(
-                'stamp' => 'August 9th, 2016',
-                'content' => 'Super awesome note'
-            );
-            array_unshift($value['timeline'], $note);
-            $yaml = Yaml::dump($value);
-            print_r($yaml);
-        } catch (ParseException $e) {
-            printf("Unable to parse the YAML string: %s", $e->getMessage());
-        }
-
-        */
-        //$project->save();
-        /*
-            ->set('date', 'August 9th, 2016')
-            ->set('content', 'Super awesome note')
-            ->save();
-        */
     }
 
 
