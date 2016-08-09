@@ -1,6 +1,3 @@
 # Dev folders
 .idea
-
-
-
-
+vendor/*
