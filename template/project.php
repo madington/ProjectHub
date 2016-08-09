@@ -53,5 +53,38 @@
         </li>
         <?php endforeach; ?>
     </ol>
+    <form class="" method="post">
+        <input type="hidden" name="project" value="<?= $project->id ?>">
+        <label>Date</label>
+        <input type="text" name="stamp" value="<?=date('r');?>">
+        <label>Title</label>
+        <input type="text" name="content" value="">
+
+        <div id="sections">
+          <div class="section">
+            <fieldset>
+                <legend>Links</legend>
+                <p>
+                    <label for="linkTitle">Title:</label>
+                    <input name="link-title[]" id="linkTitle" value="" type="text" />
+                </p>
+
+                <p>
+                    <label for="linkUrl">Url:</label>
+                    <input name="link-url[]" id="linkUrl" value="" type="url" />
+                </p>
+
+                <p><a href="#" class='remove'>Remove Link</a></p>
+
+            </fieldset>
+          </div>
+        </div>
+
+        <p><a href="#" class='addsection'>Add Link</a></p>
+
+        <input type="submit" name="name" value="SEND">
+    </form>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="/public/js/app.js"></script>
 </body>
 </html>
