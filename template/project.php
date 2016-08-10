@@ -7,10 +7,12 @@
 
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
 
-    <link rel="stylesheet" type="text/css" href="<?= $application->publicBaseUri ?>/css/style.css" media="all">
-    <link rel="stylesheet" type="text/css" href="<?= $application->publicBaseUri ?>/css/empefire.css" media="all">
+    <link rel="stylesheet" href="<?= $application->publicBaseUri ?>/css/style.css" media="all">
+    <link rel="stylesheet" href="<?= $application->publicBaseUri ?>/css/empefire.css" media="all">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+  	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
 </head>
 <body>
     <h1><img src="//firecracker.no/images/empefire-logo.png" alt="Firelabs logotyp" title="Firelabs logotyp"></h1>
@@ -23,8 +25,11 @@
           Show all projects
         </button>
         </a>
-
-        <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#deleteModal">
+        <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">
+          New note
+        </button>
+        <a href="delete.php?project=<?= $_GET['project'] ?>" onclick="confirmation(event, 'Are you 100% sure you want to delete the project? This action can not be undone 😮')">
+          <button type="button" class="btn btn-danger btn-lg">
             Delete project
         </button>
 
@@ -42,35 +47,60 @@
         </li>
         <?php endforeach; ?>
     </ol>
-    <form class="" method="post">
-        <input type="hidden" name="action" value="create-note">
-        <input type="hidden" name="project" value="<?= $project->id ?>">
-        <label>Date</label>
-        <input type="text" name="stamp" value="<?=date('r');?>">
-        <label>Title</label>
-        <input type="text" name="content" value="">
 
-        <div id="sections">
-          <div class="section">
-            <fieldset>
-                <legend>Links</legend>
-                <p>
-                    <label for="linkTitle">Title:</label>
-                    <input name="link-title[]" id="linkTitle" value="" type="text" />
-                </p>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <form action="" method="post">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Add a note</h4>
+              </div>
+              <div class="modal-body">
+                  <div class="form-group">
 
-                <p>
-                    <label for="linkUrl">Url:</label>
-                    <input name="link-url[]" id="linkUrl" value="" type="url" />
-                </p>
+                    <input type="hidden" name="project" value="<?= $project->id ?>" class="form-control">
+                    <label for="new-project" class="control-label">Date</label>
+                    <input type="text" name="stamp" value="<?=date('r');?>" class="form-control">
+                    <label for="new-project" class="control-label">Title</label>
+                    <input type="text" name="content" class="form-control">
 
-                <p><a href="#" class='remove'>Remove Link</a></p>
+                    <div id="sections">
+                      <div class="section">
+                        <fieldset>
+                            <legend>Links</legend>
+                            <p>
+                                <label for="linkTitle" class="control-label">Title for link</label>
+                                <input type="text" name="link-title[]" value="" id="linkTitle" class="form-control">
+                            </p>
 
-            </fieldset>
+                            <p>
+                                <label for="linkUrl" class="control-label">URL for link</label>
+                                <input type="url" name="link-url[]" value="" id="linkUrl" class="form-control">
+                            </p>
+
+                            <p><a href="#" class='remove'><button type="button" class="btn btn-danger">Remove Link</button></a></p>
+
+                        </fieldset>
+                      </div>
+                    </div>
+
+                    <p><a href="#" class='addsection'><button type="button" class="btn btn-success">Add Link</button></a></p>
+
+
+                  </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="reset" class="btn btn-default">Reset</button>
+                <button type="submit" class="btn btn-success">Save</button>
+              </div>
+            </form>
+            </div>
           </div>
         </div>
 
-        <p><a href="#" class='addsection'>Add Link</a></p>
+        <script src="<?= $application->publicBaseUri ?>/js/app.js"></script>
 
         <input type="submit" name="name" value="SEND">
     </form>
