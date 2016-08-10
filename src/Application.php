@@ -21,7 +21,6 @@ class Application extends Factory
     public $publicBaseUri = '/public';
 
 
-
     /* PUBLIC ACTION METHODS
      *************************************************************************/
     public function index()
@@ -40,7 +39,7 @@ class Application extends Factory
 
         if (!$userInfo) {
             // We have no user info
-            $this->renderLogin();
+            $this->renderLogin($config->get('redirect_uri'));
             die;
         }
 
@@ -139,9 +138,9 @@ class Application extends Factory
         $this->render('404');
     }
 
-    public function renderLogin()
+    public function renderLogin($redirectUri)
     {
-        $this->render('login');
+        $this->render('login', array('redirectUri' => $redirectUri));
     }
 
     public function render($page, $vars = array())

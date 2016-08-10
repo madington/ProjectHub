@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var lock = new Auth0Lock('cYDYeEw8mKS9AnVtNaWSY05ioGFkZjb4', 'firelabs.eu.auth0.com', {
         auth: {
-          redirectUrl: 'http://localhost/?auth',
+          redirectUrl: '<?= $redirectUri ?>',
           responseType: 'code',
           params: {
             scope: 'openid email' // Learn about scopes: https://auth0.com/docs/scopes
