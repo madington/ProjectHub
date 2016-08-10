@@ -1,3 +1,10 @@
+function confirmation(event, text) {
+  var answer = confirm(text);
+  if (!answer) {
+    event.preventDefault();
+  }
+}
+
 //define template
 var template = $('#sections .section:first').clone();
 

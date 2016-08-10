@@ -11,14 +11,10 @@
     <link rel="stylesheet" href="<?= $application->publicBaseUri ?>/css/empefire.css" media="all">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 
-    <script>
-    function confirmation(event, text) {
-    	var answer = confirm(text);
-    	if (!answer) {
-    		event.preventDefault();
-    	}
-    }
-    </script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+  	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+
+    <script src="<?= $application->publicBaseUri ?>/js/app.js"></script>
 </head>
 <body>
     <h1><img src="//firecracker.no/images/empefire-logo.png" alt="Firelabs logotyp" title="Firelabs logotyp"></h1>
@@ -106,7 +102,5 @@
           </div>
         </div>
 
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-    <script src="../projecthub<?= $application->publicBaseUri ?>/js/app.js"></script>
 </body>
 </html>

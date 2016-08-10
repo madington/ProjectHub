@@ -97,7 +97,9 @@ class Application extends Factory
             $value = Yaml::parse(file_get_contents($file));
             $note = array(
                 'stamp' => $data['stamp'],
-                'content' => $data['content']
+                'content' => $data['content'],
+                'title' => $title,
+                'url' => $url
             );
             if (isset($data['link-title']) && !empty($data['link-title'])) {
                 $noteLinks = [];
