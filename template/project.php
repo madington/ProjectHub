@@ -11,14 +11,6 @@
     <link rel="stylesheet" type="text/css" href="<?= $application->publicBaseUri ?>/css/empefire.css" media="all">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 
-    <script>
-    function confirmation(event, text) {
-    	var answer = confirm(text);
-    	if (!answer) {
-    		event.preventDefault();
-    	}
-    }
-    </script>
 </head>
 <body>
     <h1><img src="//firecracker.no/images/empefire-logo.png" alt="Firelabs logotyp" title="Firelabs logotyp"></h1>
@@ -31,11 +23,11 @@
           Show all projects
         </button>
         </a>
-        <a href="delete.php?project=<?= $_GET['project'] ?>" onclick="confirmation(event, 'Are you 100% sure you want to delete the project? This action can not be undone 😮')">
-          <button type="button" class="btn btn-danger btn-lg">
+
+        <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#deleteModal">
             Delete project
-          </button>
-        </a>
+        </button>
+
     <?php endif; ?>
     <ol class="timeline">
     <?php foreach ($project->timeline as $note) : ?>
@@ -44,13 +36,14 @@
             <div class="timeline-content"><?= $note->content ?></div>
             <div class="timeline-links">
             <?php foreach ($note->links as $label => $href) : ?>
-                <a href="<?= $href ?>"><?= $label ?></a>
+                <a href="<?= $href ?>" target="_blank"><?= $label ?></a>
             <?php endforeach; ?>
             </div>
         </li>
         <?php endforeach; ?>
     </ol>
     <form class="" method="post">
+        <input type="hidden" name="action" value="create-note">
         <input type="hidden" name="project" value="<?= $project->id ?>">
         <label>Date</label>
         <input type="text" name="stamp" value="<?=date('r');?>">
@@ -81,6 +74,27 @@
 
         <input type="submit" name="name" value="SEND">
     </form>
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <form method="post">
+              <input type="hidden" name="action" value="delete-project">
+              <input type="hidden" name="project" value="<?= $project->id ?>">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Delete project</h4>
+          </div>
+          <div class="modal-body">
+              <p>Are you 100% sure you want to delete the project? This action can not be undone 😮</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">No, get me out of here</button>
+            <button type="submit" class="btn btn-success">Yes, delete it</button>
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
     <script src="/public/js/app.js"></script>
