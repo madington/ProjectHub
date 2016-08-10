@@ -1,3 +1,5 @@
 # Dev folders
 .idea
 vendor/*
+config/*
+!config/.keep

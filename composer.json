@@ -14,7 +14,9 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "elephant418/model418": "~1.1.1"
+        "elephant418/model418": "~1.1.1",
+        "auth0/auth0-php": "~3.0",
+        "hassankhan/config": "0.10.*"
     },
     "autoload": {
         "psr-4": {
