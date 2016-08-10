@@ -7,8 +7,8 @@
 
   	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
 
-    <link rel="stylesheet" type="text/css" href="<?= $application->publicBaseUri ?>/css/style.css" media="all">
-    <link rel="stylesheet" type="text/css" href="<?= $application->publicBaseUri ?>/css/empefire.css" media="all">
+    <link rel="stylesheet" href="<?= $application->publicBaseUri ?>/css/style.css" media="all">
+    <link rel="stylesheet" href="<?= $application->publicBaseUri ?>/css/empefire.css" media="all">
   	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
   	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>

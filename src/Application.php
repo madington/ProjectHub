@@ -36,7 +36,8 @@ class Application extends Factory
         ));
 
         $userInfo = $auth0->getUser();
-
+        echo '<pre>' . print_r($userInfo, 1) . '</pre>';
+        echo '<header><img src="' . $userInfo['picture'] . '" id="avatar" alt="' . $userInfo['name'] . '" title="' . $userInfo['name'] . '">Inlogggad som: ' . $userInfo['name'] . '</header>';
         if (!$userInfo) {
             // We have no user info
             $this->renderLogin($config->get('redirect_uri'));

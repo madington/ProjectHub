@@ -7,8 +7,8 @@
 
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
 
-    <link rel="stylesheet" type="text/css" href="<?= $application->publicBaseUri ?>/css/style.css" media="all">
-    <link rel="stylesheet" type="text/css" href="<?= $application->publicBaseUri ?>/css/empefire.css" media="all">
+    <link rel="stylesheet" href="<?= $application->publicBaseUri ?>/css/style.css" media="all">
+    <link rel="stylesheet" href="<?= $application->publicBaseUri ?>/css/empefire.css" media="all">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 
     <script>
@@ -26,7 +26,7 @@
         <?= $project->name ?> Timeline
     </h1>
     <?php if ($projectCount > 1) : ?>
-        <a href="/">
+        <a href="<?= $application->publicBaseUri ?>">
         <button type="button" class="btn btn-primary btn-lg">
           Show all projects
         </button>
