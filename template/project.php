@@ -13,8 +13,6 @@
 
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
   	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
-
-    <script src="<?= $application->publicBaseUri ?>/js/app.js"></script>
 </head>
 <body>
     <h1><img src="//firecracker.no/images/empefire-logo.png" alt="Firelabs logotyp" title="Firelabs logotyp"></h1>
@@ -22,7 +20,7 @@
         <?= $project->name ?> Timeline
     </h1>
     <?php if ($projectCount > 1) : ?>
-        <a href="<?= $application->publicBaseUri ?>">
+        <a href="<?= $application->publicBaseUri ?>/../">
         <button type="button" class="btn btn-primary btn-lg">
           Show all projects
         </button>
@@ -101,6 +99,8 @@
             </div>
           </div>
         </div>
+
+        <script src="<?= $application->publicBaseUri ?>/js/app.js"></script>
 
 </body>
 </html>

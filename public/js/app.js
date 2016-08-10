@@ -1,9 +1,20 @@
+
+
 function confirmation(event, text) {
   var answer = confirm(text);
   if (!answer) {
     event.preventDefault();
   }
 }
+
+$(document).ready(function () {
+  $("form").submit(function(event) {
+    if ($('input[name="title"], input[name="content"]').val().length == 0) {
+      alert('Skriv in en titel');
+      event.preventDefault();
+    }
+  });
+});
 
 //define template
 var template = $('#sections .section:first').clone();
