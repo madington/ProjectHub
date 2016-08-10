@@ -25,7 +25,7 @@
         <li class="timeline-node">
             <div class="timeline-stamp"><?= $project->stamp ?></div>
             <div class="timeline-content">
-                <a href="?project=<?= $project->id ?>"><?= $project->name ?></a>
+                <a href="?action=view-project&project=<?= $project->id ?>"><?= $project->name ?></a>
             </div>
         </li>
     <?php endforeach; ?>
@@ -34,7 +34,8 @@
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <form action="add.php" method="post">
+          <form method="post">
+              <input type="hidden" name="action" value="create-project">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="myModalLabel">Add a project</h4>
