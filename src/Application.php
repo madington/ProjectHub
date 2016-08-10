@@ -87,12 +87,17 @@ class Application extends Factory
     }
 
     public function saveNote($data){
-        $file = 'data/'.$data['project'].'.yml';
+        $file = 'data/' . $data['project'] . '.yml';
         try {
+            foreach ($data['link-title'] as $key => $value) {
+              $title[] = $value;
+              $url[] = $data['link-url'][$key];
+            }
+
             $value = Yaml::parse(file_get_contents($file));
             $note = array(
                 'stamp' => $data['stamp'],
-                'content' => $data['content'],
+                'content' => $data['content']
             );
             if (isset($data['link-title']) && !empty($data['link-title'])) {
                 $noteLinks = [];

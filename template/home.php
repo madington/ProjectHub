@@ -17,7 +17,7 @@
 <body>
 
 	<h1><img src="//firecracker.no/images/empefire-logo.png" alt="Firelabs logotyp" title="Firelabs logotyp"></h1>
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">
       New project
     </button>
     <ol class="timeline">
@@ -41,7 +41,7 @@
           </div>
           <div class="modal-body">
               <div class="form-group">
-                <label for="recipient-name" class="control-label">Name of the new project</label>
+                <label for="new-project" class="control-label">Name of the new project</label>
                 <input type="text" name="title" class="form-control" id="new-project">
               </div>
           </div>
