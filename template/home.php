@@ -3,26 +3,28 @@
 
     <head>
         <meta charset="utf-8">
-        <title>Firelabs</title>
         <meta name="viewport" content="width=device-width">
 
-        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+        <title>Firelabs</title>
 
-        <link rel="stylesheet" href="<?= $application->publicBaseUri ?>/css/style.css" media="all">
-        <link rel="stylesheet" href="<?= $application->publicBaseUri ?>/css/empefire.css" media="all">
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 
-    </head>
+        <link rel="stylesheet" href="<?= $application->publicBaseUri ?>/css/style.css" media="all">
+        <link rel="stylesheet" href="<?= $application->publicBaseUri ?>/css/firelabs.css" media="all">
 
+    </head>
     <body>
 
         <h1><img src="//firecracker.no/images/empefire-logo.png" alt="Firelabs logotyp" title="Firelabs logotyp"></h1>
+        <?php if (!empty($role) && $role == 'admin') { ?>
         <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#saveProject">
-            New project
+            <i class="fa fa-plus"></i>New project
         </button>
-        <a href="?action=logout" style="float: right">
+        <?php } ?>
+        <a href="?action=logout" id="logout">
           <button type="button" class="btn btn-default btn-lg">
-              Log out
+              <i class="fa fa-sign-out"></i>Log out
           </button>
         </a>
         <ol class="timeline">
@@ -54,9 +56,9 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="reset" class="btn btn-default">Reset</button>
-                            <button type="submit" class="btn btn-success">Save</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i>Close</button>
+                            <button type="reset" class="btn btn-default"><i class="fa fa-ban"></i>Reset</button>
+                            <button type="submit" class="btn btn-success"><i class="fa fa-check"></i>Save</button>
                         </div>
                     </form>
                 </div>

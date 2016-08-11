@@ -15,13 +15,12 @@ use Noodlehaus\Config;
 class Application extends Factory
 {
 
-
     /* ATTRIBUTES
      *************************************************************************/
     public $publicBaseUri = '/public';
     public $userInfo = '';
     private $client = 'sandbox';
-
+    public $role = '';
 
     /* PUBLIC ACTION METHODS
      *************************************************************************/
@@ -36,15 +35,20 @@ class Application extends Factory
             'client_secret' => $config->get('client_secret'),
             'redirect_uri'  => $config->get('redirect_uri')
         ));
-        
+
         $this->userInfo = $auth0->getUser();
+
+        echo '<pre>' . print_r($this->userInfo, 1) . '</pre>';
+        echo '<header><img src="' . $this->userInfo['picture'] . '" id="avatar" alt="' . $this->userInfo['name'] . '" title="' . $this->userInfo['name'] . '">Logged in as: ' . $this->userInfo['name'] . '</header>';
+
+        $this->role = print_r($this->userInfo['role'], 1);
+
         if (!$this->userInfo) {
-            echo '<pre>' . print_r($userInfo, 1) . '</pre>';
-            echo '<header><img src="' . $userInfo['picture'] . '" id="avatar" alt="' . $userInfo['name'] . '" title="' . $userInfo['name'] . '">Logged in as: ' . $userInfo['name'] . '</header>';
             // We have no user info
             $this->renderLogin($config->get('redirect_uri'));
             die;
         }
+
         if (isset($this->userInfo['app_metadata']['client'])) {
             $this->client = $this->userInfo['app_metadata']['client'];
         }
@@ -53,22 +57,22 @@ class Application extends Factory
         if (isset($_POST['action'])) {
             if ($_POST['action'] == 'create-project') {
                 $result = $this->saveProject($_POST);
-            }else if ($_POST['action'] == 'create-note') {
+            } else if ($_POST['action'] == 'create-note') {
                 $result = $this->saveNote($_POST);
-            }else if ($_POST['action'] == 'delete-project') {
+            } else if ($_POST['action'] == 'delete-project') {
                 $result = $this->deleteProject($_POST, $config->get('redirect_uri'));
-            }else if ($_POST['action'] == 'delete-note') {
-                # code...
+            } else if ($_POST['action'] == 'delete-note') {
+                $result = $this->deleteNote($_POST, $config->get('redirect_uri'));
             }
-        }elseif (isset($_GET['action'])) {
+        } else if (isset($_GET['action'])) {
             if ($_GET['action'] == 'view-project') {
                 $result = $this->one($_GET['project']);
-            }else if ($_GET['action'] == 'logout') {
+            } else if ($_GET['action'] == 'logout') {
                 $auth0->logout();
                 session_destroy();
-                header("Location: ".$config->get('redirect_uri'));
+                header("Location: " . $config->get('redirect_uri'));
             }
-        }else {
+        } else {
             $result = $this->all();
         }
 
@@ -108,7 +112,7 @@ class Application extends Factory
         $status = $this->newInstance('Project')->saveNote($data, $this->client, $data['project']);
         if ($status) {
             return $this->one($data['project']);
-        }else {
+        } else {
             return false;
         }
     }
@@ -117,23 +121,26 @@ class Application extends Factory
         $status = $this->newInstance('Project')->saveProject($data, $this->client);
         if ($status) {
             return $this->all();
-        }else {
+        } else {
             return false;
         }
     }
 
     public function deleteProject($data, $goto){
         $status = $this->newInstance('Project')->deleteProject($data['project'], $this->client);
-        header("Location: ".$goto);
+        header("Location: " . $goto);
     }
 
-
+    public function deleteNote($data, $goto){
+        $status = $this->newInstance('Project')->deleteProject($data['project'], $this->client);
+        header("Location: " . $goto);
+    }
 
     /* PROTECTED METHODS
      *************************************************************************/
     public function renderProject($project, $projectCount)
     {
-        $this->render('project', array('project'=> $project, 'projectCount'=> $projectCount));
+        $this->render('project', array('project'=> $project, 'projectCount'=> $projectCount, 'role' => $this->role));
     }
 
     public function renderProjectList($projectList)
@@ -162,12 +169,11 @@ class Application extends Factory
         ob_start();
 
         $application = $this;
-        require(ROOT_PATH.'/template/'.$page.'.php');
+        require(ROOT_PATH.'/template/' . $page.'.php');
 
         $html = ob_get_contents();
         ob_end_clean();
 
         echo $html;
     }
-
 }

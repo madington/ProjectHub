@@ -3,37 +3,40 @@
 
     <head>
         <meta charset="utf-8">
-        <title>
-            <?= $project->name ?> Timeline</title>
         <meta name="viewport" content="width=device-width">
 
+        <title><?= $project->name ?> Timeline</title>
+
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 
         <link rel="stylesheet" href="<?= $application->publicBaseUri ?>/css/style.css" media="all">
-        <link rel="stylesheet" href="<?= $application->publicBaseUri ?>/css/empefire.css" media="all">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+        <link rel="stylesheet" href="<?= $application->publicBaseUri ?>/css/firelabs.css" media="all">
 
     </head>
     <body>
+
         <h1><img src="//firecracker.no/images/empefire-logo.png" alt="Firelabs logotyp" title="Firelabs logotyp"></h1>
         <h1>
-        <?= $project->name ?> Timeline
-    </h1>
+          <?= $project->name ?> Timeline
+        </h1>
         <?php if ($projectCount > 1) : ?>
-        <a href="<?= $application->publicBaseUri ?>/../">
+        <a href="<?= $application->publicBaseUri ?>/">
             <button type="button" class="btn btn-primary btn-lg">
-                Show all projects
+                <i class="fa fa-chevron-left"></i>Show all projects
             </button>
         </a>
+        <?php if (!empty($role) && $role == 'admin') { ?>
         <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#saveNote">
-            New note
+            <i class="fa fa-plus"></i>New note
         </button>
         <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#deleteModal">
-            Delete project
+            <i class="fa fa-trash"></i>Delete project
         </button>
-        <a href="?action=logout" style="float: right">
+        <?php } ?>
+        <a href="?action=logout" id="logout">
           <button type="button" class="btn btn-default btn-lg">
-              Log out
+              <i class="fa fa-sign-out"></i>Log out
           </button>
         </a>
 
@@ -41,6 +44,13 @@
         <ol class="timeline">
             <?php foreach ($project->timeline as $note) : ?>
             <li class="timeline-node">
+                <form method="post" class="delete-note">
+                    <input type="hidden" name="action" value="delete-note">
+                    <input type="hidden" name="project" value="<?= $project->id ?>">
+                    <input type="hidden" name="task" value="<?= $note->stamp ?>">
+                    <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i>Delete task</button>
+                </form>
+
                 <div class="timeline-stamp">
                     <?= $note->stamp ?>
                 </div>
@@ -54,11 +64,6 @@
                     </a>
                     <?php endforeach; ?>
                 </div>
-                <a href="delete_task.php?project=<?= $_GET['project'] ?>&task=<?= sizeof($project->timeline)  ?>" onclick="confirmation(event, 'Are you sure you want to delete the task? \nThis action can not be undone')" style="display: inline-block">
-                  <button type="button" class="btn btn-danger btn-xs" style="margin-top: 1em">
-                    Delete task
-                  </button>
-                </a>
             </li>
             <?php endforeach; ?>
         </ol>
@@ -93,35 +98,33 @@
                                   </div>
                                   <div class="col-sm-10" id="sections">
                                       <div class="section">
+                                        <div class="row">
+                                          <label for="linkTitle" class="control-label sr-only">Title for link</label>
+                                          <input type="text" name="link-title[]" value="" id="linkTitle" class="form-control" placeholder="Title for link">
+                                        </div>
 
+                                        <div class="row">
+                                          <label for="linkUrl" class="control-label sr-only">URL for link</label>
+                                          <input type="url" name="link-url[]" value="" id="linkUrl" class="form-control" placeholder="URL for link">
+                                        </div>
 
-                                                  <label for="linkTitle" class="control-label sr-only">Title for link</label>
-                                                  <input type="text" name="link-title[]" value="" id="linkTitle" class="form-control" placeholder="Title for link">
-
-                                                  <label for="linkUrl" class="control-label sr-only">URL for link</label>
-                                                  <input type="url" name="link-url[]" value="" id="linkUrl" class="form-control" placeholder="URL for link">
-
-                                                  <a href="#" class='remove'>
-                                                      <button type="button" class="btn btn-danger">Remove Link</button>
-                                                  </a>
-
-
+                                        <div class="row">
+                                          <a href="#" class="remove">
+                                              <button type="button" class="btn btn-danger"><i class="fa fa-trash"></i>Remove Link</button>
+                                          </a>
+                                        </div>
                                       </div>
                                   </div>
-
-
-
-                                <p>
-                                    <a href="#" class='addsection'>
-                                        <button type="button" class="btn btn-success">Add Link</button>
+                                  <div class="col-sm-12">
+                                    <a href="#" class="addsection">
+                                        <button type="button" class="btn btn-success"><i class="fa fa-plus"></i>Add Link</button>
                                     </a>
-                                </p>
-
+                                  </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="reset" class="btn btn-default">Reset</button>
-                            <button type="submit" class="btn btn-success">Save</button>
+                        <div class="col-xs-12 modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i>Close</button>
+                            <button type="reset" class="btn btn-default"><i class="fa fa-ban"></i>Reset</button>
+                            <button type="submit" class="btn btn-success"><i class="fa fa-check"></i>Save</button>
                         </div>
                     </form>
                 </div>
@@ -142,13 +145,14 @@
                             <p>Are you 100% sure you want to delete the project? This action can not be undone 😮</p>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">No, get me out of here</button>
-                            <button type="submit" class="btn btn-success">Yes, delete it</button>
+                            <button type="button" class="btn btn-success" data-dismiss="modal">No, get me out of here</button>
+                            <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i>Yes, delete it</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+
         <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
         <script src="<?= $application->publicBaseUri ?>/js/app.js"></script>

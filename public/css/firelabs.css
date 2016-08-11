@@ -38,6 +38,27 @@ body div.modal.fade.in {
 	justify-content: center;
 }
 
+#logout {
+	float: right;
+}
+
+li .delete-note {
+	display: none;
+	float: right;
+}
+
+li:hover .delete-note {
+	display: block;
+}
+
+i.fa {
+	margin-right: 0.5em;
+}
+
+.row {
+	margin-bottom: 1em;
+}
+
 body {
 	background: #323334;
 	margin: 0 auto;
