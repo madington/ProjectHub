@@ -14,24 +14,28 @@
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 
     </head>
-
     <body>
         <h1><img src="//firecracker.no/images/empefire-logo.png" alt="Firelabs logotyp" title="Firelabs logotyp"></h1>
         <h1>
         <?= $project->name ?> Timeline
     </h1>
         <?php if ($projectCount > 1) : ?>
-        <a href="/">
+        <a href="<?= $application->publicBaseUri ?>/../">
             <button type="button" class="btn btn-primary btn-lg">
                 Show all projects
             </button>
         </a>
-        <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">
+        <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#saveNote">
             New note
         </button>
         <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#deleteModal">
             Delete project
         </button>
+        <a href="?action=logout" style="float: right">
+          <button type="button" class="btn btn-default btn-lg">
+              Log out
+          </button>
+        </a>
 
         <?php endif; ?>
         <ol class="timeline">
@@ -54,10 +58,10 @@
             <?php endforeach; ?>
         </ol>
 
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal fade" id="saveNote" tabindex="-1" role="dialog" aria-labelledby="saveNote">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <form action="" method="post" class="form-horizontal">
+                    <form action="" method="post" class="form-horizontal save">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title" id="myModalLabel">Add a note</h4>
@@ -119,7 +123,7 @@
             </div>
         </div>
 
-        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <form method="post">

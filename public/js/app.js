@@ -8,7 +8,7 @@ function confirmation(event, text) {
 }
 
 $(document).ready(function () {
-  $("form").submit(function(event) {
+  $("form.save").submit(function(event) {
     if ($('input[name="title"], input[name="content"]').val().length == 0) {
       alert('Skriv in en titel');
       event.preventDefault();

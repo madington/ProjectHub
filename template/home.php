@@ -17,9 +17,14 @@
     <body>
 
         <h1><img src="//firecracker.no/images/empefire-logo.png" alt="Firelabs logotyp" title="Firelabs logotyp"></h1>
-        <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">
+        <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#saveProject">
             New project
         </button>
+        <a href="?action=logout" style="float: right">
+          <button type="button" class="btn btn-default btn-lg">
+              Log out
+          </button>
+        </a>
         <ol class="timeline">
             <?php foreach ($projectList as $project) : ?>
             <li class="timeline-node">
@@ -33,10 +38,10 @@
             <?php endforeach; ?>
         </ol>
 
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal fade" id="saveProject" tabindex="-1" role="dialog" aria-labelledby="saveProject">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <form method="post">
+                    <form method="post" class="save">
                         <input type="hidden" name="action" value="create-project">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>

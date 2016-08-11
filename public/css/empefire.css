@@ -29,7 +29,7 @@ header {
 	width: 50px;"
 }
 
-body div#myModal.modal.fade.in {
+body div.modal.fade.in {
 	-webkit-align-items: center;
 	-webkit-justify-content: center;
 	align-items: center;

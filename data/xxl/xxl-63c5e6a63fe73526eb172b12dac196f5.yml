@@ -1,0 +1,4 @@
+name: Cool
+timeline:
+    - { stamp: 'Thu, 11 Aug 2016 10:21:01 +0200', content: ds, links: { '': '' } }
+    - { stamp: 'Thu, 11 Aug 2016 10:21:00 +0200', content: 'Project start' }
