@@ -36,9 +36,11 @@ class Application extends Factory
             'client_secret' => $config->get('client_secret'),
             'redirect_uri'  => $config->get('redirect_uri')
         ));
-
+        
         $this->userInfo = $auth0->getUser();
         if (!$this->userInfo) {
+            echo '<pre>' . print_r($userInfo, 1) . '</pre>';
+            echo '<header><img src="' . $userInfo['picture'] . '" id="avatar" alt="' . $userInfo['name'] . '" title="' . $userInfo['name'] . '">Logged in as: ' . $userInfo['name'] . '</header>';
             // We have no user info
             $this->renderLogin($config->get('redirect_uri'));
             die;

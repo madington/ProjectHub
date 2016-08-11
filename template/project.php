@@ -54,6 +54,11 @@
                     </a>
                     <?php endforeach; ?>
                 </div>
+                <a href="delete_task.php?project=<?= $_GET['project'] ?>&task=<?= sizeof($project->timeline)  ?>" onclick="confirmation(event, 'Are you sure you want to delete the task? \nThis action can not be undone')" style="display: inline-block">
+                  <button type="button" class="btn btn-danger btn-xs" style="margin-top: 1em">
+                    Delete task
+                  </button>
+                </a>
             </li>
             <?php endforeach; ?>
         </ol>

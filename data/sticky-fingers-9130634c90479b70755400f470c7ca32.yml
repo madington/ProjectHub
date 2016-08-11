@@ -1,5 +1,4 @@
-name: "Sticky fingers"
+name: 'Sticky fingers'
 timeline:
-    -
-        stamp: "August 10th, 2016 11:47:31"
-        content: "First blood"
+    - { stamp: 'Wed, 10 Aug 2016 11:49:35 +0200', content: 'Firat med en hamburgare', links: { '': '' } }
+    - { stamp: 'August 10th, 2016 11:47:31', content: 'First blood' }
