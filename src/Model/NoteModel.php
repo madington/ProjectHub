@@ -13,13 +13,14 @@ class NoteModel extends FlatModel
     protected function initSchema()
     {
         return array(
+            'id',
             'date',
             'stamp',
             'content',
             'links' => array()
         );
     }
-    
+
     protected function initialize()
     {
         $time = strtotime($this->stamp);
@@ -30,5 +31,6 @@ class NoteModel extends FlatModel
         if (!is_array($this->links)) {
             $this->links = array();
         }
+
     }
 }

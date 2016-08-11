@@ -53,6 +53,7 @@
 
                 <div class="timeline-stamp">
                     <?= $note->stamp ?>
+                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteNoteModal" data-id="<?=$note->id?>">Remove</button>
                 </div>
                 <div class="timeline-content">
                     <?= $note->content ?>
@@ -152,7 +153,28 @@
                 </div>
             </div>
         </div>
-
+        <div class="modal fade" id="deleteNoteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form method="post">
+                        <input type="hidden" name="action" value="delete-note">
+                        <input type="hidden" name="project" value="<?= $project->id ?>">
+                        <input type="hidden" name="id" value="">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Delete project</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Are you 100% sure you want to delete the note? This action can not be undone 😮</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">No, get me out of here</button>
+                            <button type="submit" class="btn btn-danger">Yes, delete it</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
         <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
         <script src="<?= $application->publicBaseUri ?>/js/app.js"></script>

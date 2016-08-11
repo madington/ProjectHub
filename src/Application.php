@@ -61,8 +61,8 @@ class Application extends Factory
                 $result = $this->saveNote($_POST);
             } else if ($_POST['action'] == 'delete-project') {
                 $result = $this->deleteProject($_POST, $config->get('redirect_uri'));
-            } else if ($_POST['action'] == 'delete-note') {
-                $result = $this->deleteNote($_POST, $config->get('redirect_uri'));
+            }else if ($_POST['action'] == 'delete-note') {
+                $result = $this->deleteNote($_POST);
             }
         } else if (isset($_GET['action'])) {
             if ($_GET['action'] == 'view-project') {
@@ -131,9 +131,13 @@ class Application extends Factory
         header("Location: " . $goto);
     }
 
-    public function deleteNote($data, $goto){
-        $status = $this->newInstance('Project')->deleteProject($data['project'], $this->client);
-        header("Location: " . $goto);
+    public function deleteNote($data){
+        $status = $this->newInstance('Project')->deleteNote($data['id'], $this->client, $data['project']);
+        if ($status) {
+            return $this->one($data['project']);
+        }else {
+            return false;
+        }
     }
 
     /* PROTECTED METHODS

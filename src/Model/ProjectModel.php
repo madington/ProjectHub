@@ -93,6 +93,7 @@ class ProjectModel extends ModelQuery
         try {
             $value = Yaml::parse(file_get_contents($file));
             $note = array(
+                'id' => md5(microtime(true)),
                 'stamp' => $data['stamp'],
                 'content' => $data['content'],
             );
@@ -104,6 +105,22 @@ class ProjectModel extends ModelQuery
             }
 
             array_unshift($value['timeline'], $note);
+            $yaml = Yaml::dump($value);
+            file_put_contents($file, $yaml);
+            return true;
+        } catch (ParseException $e) {
+            printf("Unable to parse the YAML string: %s", $e->getMessage());
+            return false;
+        }
+    }
+
+    public function deleteNote($id, $client, $project){
+        $file = __DIR__ . '/../../data/'.$client.'/'.$project.'.yml';
+        try {
+            $value = Yaml::parse(file_get_contents($file));
+            $value['timeline'] = array_filter($value['timeline'], function($v, $k) use ($id){
+                return $v['id'] != $id;
+            });
             $yaml = Yaml::dump($value);
             file_put_contents($file, $yaml);
             return true;
