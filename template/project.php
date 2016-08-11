@@ -20,6 +20,7 @@
         <h1>
           <?= $project->name ?> Timeline
         </h1>
+        
         <?php if ($projectCount > 1) : ?>
         <a href="<?= $application->publicBaseUri ?>/">
             <button type="button" class="btn btn-primary btn-lg">
@@ -93,29 +94,31 @@
                                     </div>
                                   </div>
 
-                                  <div class="col-sm-2">
-                                      <label class="control-label">Links</label>
-                                  </div>
-                                  <div class="col-sm-10" id="sections">
+                                  <div id="sections">
                                       <div class="section">
                                         <div class="row">
+                                        <div class="col-sm-2">
+                                            <label class="control-label">Link</label>
+                                        </div>
+                                        <div class="col-sm-3">
                                           <label for="linkTitle" class="control-label sr-only">Title for link</label>
-                                          <input type="text" name="link-title[]" value="" id="linkTitle" class="form-control" placeholder="Title for link">
+                                          <input type="text" name="link-title[]" id="linkTitle" class="form-control" placeholder="Title">
                                         </div>
 
-                                        <div class="row">
+                                        <div class="col-sm-3">
                                           <label for="linkUrl" class="control-label sr-only">URL for link</label>
-                                          <input type="url" name="link-url[]" value="" id="linkUrl" class="form-control" placeholder="URL for link">
+                                          <input type="url" name="link-url[]" id="linkUrl" class="form-control" placeholder="URL">
                                         </div>
 
-                                        <div class="row">
+                                        <div class="col-sm-3">
                                           <a href="#" class="remove">
-                                              <button type="button" class="btn btn-danger"><i class="fa fa-trash"></i>Remove Link</button>
+                                              <button type="button" class="btn btn-danger"><i class="fa fa-trash"></i>Remove</button>
                                           </a>
                                         </div>
                                       </div>
+                                      </div>
                                   </div>
-                                  <div class="col-sm-12">
+                                  <div>
                                     <a href="#" class="addsection">
                                         <button type="button" class="btn btn-success"><i class="fa fa-plus"></i>Add Link</button>
                                     </a>

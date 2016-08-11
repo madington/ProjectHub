@@ -17,6 +17,7 @@
     <body>
 
         <h1><img src="//firecracker.no/images/empefire-logo.png" alt="Firelabs logotyp" title="Firelabs logotyp"></h1>
+        
         <?php if (!empty($role) && $role == 'admin') { ?>
         <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#saveProject">
             <i class="fa fa-plus"></i>New project
@@ -27,6 +28,7 @@
               <i class="fa fa-sign-out"></i>Log out
           </button>
         </a>
+
         <ol class="timeline">
             <?php foreach ($projectList as $project) : ?>
             <li class="timeline-node">

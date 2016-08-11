@@ -55,8 +55,13 @@ i.fa {
 	margin-right: 0.5em;
 }
 
+.section,
 .row {
 	margin-bottom: 1em;
+}
+
+input[name="content"] {
+	font-weight: bold;
 }
 
 body {

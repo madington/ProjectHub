@@ -29,7 +29,7 @@ $('body').on('click', '.addsection', function() {
     sectionsCount++;
 
     //loop through each input
-    var section = template.clone().find(':input').each(function(){
+    var section = template.clone().find(':input').each(function() {
 
         //set id to store the updated section number
         var newId = this.id + sectionsCount;

@@ -145,7 +145,7 @@ class Application extends Factory
 
     public function renderProjectList($projectList)
     {
-        $this->render('home', array('projectList'=> $projectList));
+        $this->render('home', array('projectList'=> $projectList, 'role' => $this->role));
     }
 
     public function renderTutorial()
@@ -169,7 +169,7 @@ class Application extends Factory
         ob_start();
 
         $application = $this;
-        require(ROOT_PATH.'/template/' . $page.'.php');
+        require(ROOT_PATH.'/template/' . $page . '.php');
 
         $html = ob_get_contents();
         ob_end_clean();
