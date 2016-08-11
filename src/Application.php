@@ -19,6 +19,8 @@ class Application extends Factory
     /* ATTRIBUTES
      *************************************************************************/
     public $publicBaseUri = '/public';
+    public $userInfo = '';
+    private $client = 'sandbox';
 
 
     /* PUBLIC ACTION METHODS
@@ -35,26 +37,39 @@ class Application extends Factory
             'redirect_uri'  => $config->get('redirect_uri')
         ));
 
-        $userInfo = $auth0->getUser();
-        echo '<pre>' . print_r($userInfo, 1) . '</pre>';
-        echo '<header><img src="' . $userInfo['picture'] . '" id="avatar" alt="' . $userInfo['name'] . '" title="' . $userInfo['name'] . '">Inlogggad som: ' . $userInfo['name'] . '</header>';
-        if (!$userInfo) {
+        $this->userInfo = $auth0->getUser();
+        if (!$this->userInfo) {
             // We have no user info
             $this->renderLogin($config->get('redirect_uri'));
             die;
         }
+        if (isset($this->userInfo['app_metadata']['client'])) {
+            $this->client = $this->userInfo['app_metadata']['client'];
+        }
 
-        if (isset($_POST['project'])) {
-            # Save new project /?project=sample&content=Kickoff+Meeting&link-title[]=View notes&link-url[]=http://www.google.com
-            $result = $this->saveNote($_POST);
-        }else if (isset($_POST['note'])) {
-            # save new note
-
-        }else if (isset($_GET['project'])) {
-            $result = $this->one($_GET['project']);
-        } else {
+        // Routs
+        if (isset($_POST['action'])) {
+            if ($_POST['action'] == 'create-project') {
+                $result = $this->saveProject($_POST);
+            }else if ($_POST['action'] == 'create-note') {
+                $result = $this->saveNote($_POST);
+            }else if ($_POST['action'] == 'delete-project') {
+                $result = $this->deleteProject($_POST, $config->get('redirect_uri'));
+            }else if ($_POST['action'] == 'delete-note') {
+                # code...
+            }
+        }elseif (isset($_GET['action'])) {
+            if ($_GET['action'] == 'view-project') {
+                $result = $this->one($_GET['project']);
+            }else if ($_GET['action'] == 'logout') {
+                $auth0->logout();
+                session_destroy();
+                header("Location: ".$config->get('redirect_uri'));
+            }
+        }else {
             $result = $this->all();
         }
+
         if (!$result) {
             $this->render404();
         }
@@ -67,8 +82,9 @@ class Application extends Factory
         if (count($projectList) == 0) {
             $this->renderTutorial();
         } else if (count($projectList) == 1) {
-            $project = array_pop($projectList);
-            $this->renderProject($project, 1);
+            foreach ($projectList as $key => $value) {
+                $this->renderProject($value, 1);
+            }
         } else {
             $this->renderProjectList($projectList);
         }
@@ -87,32 +103,26 @@ class Application extends Factory
     }
 
     public function saveNote($data){
-        $file = 'data/' . $data['project'] . '.yml';
-        try {
-            foreach ($data['link-title'] as $key => $value) {
-              $title[] = $value;
-              $url[] = $data['link-url'][$key];
-            }
-
-            $value = Yaml::parse(file_get_contents($file));
-            $note = array(
-                'stamp' => $data['stamp'],
-                'content' => $data['content']
-            );
-            if (isset($data['link-title']) && !empty($data['link-title'])) {
-                $noteLinks = [];
-                for ($i=0; $i < count($data['link-title']); $i++) {
-                    $note['links'][$data['link-title'][$i]] = $data['link-url'][$i];
-                }
-            }
-
-            array_unshift($value['timeline'], $note);
-            $yaml = Yaml::dump($value);
-            file_put_contents($file, $yaml);
+        $status = $this->newInstance('Project')->saveNote($data, $this->client, $data['project']);
+        if ($status) {
             return $this->one($data['project']);
-        } catch (ParseException $e) {
-            printf("Unable to parse the YAML string: %s", $e->getMessage());
+        }else {
+            return false;
         }
+    }
+
+    public function saveProject($data){
+        $status = $this->newInstance('Project')->saveProject($data, $this->client);
+        if ($status) {
+            return $this->all();
+        }else {
+            return false;
+        }
+    }
+
+    public function deleteProject($data, $goto){
+        $status = $this->newInstance('Project')->deleteProject($data['project'], $this->client);
+        header("Location: ".$goto);
     }
 
 

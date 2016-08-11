@@ -1,6 +1,0 @@
-name: XXL
-timeline:
-    - { stamp: 'Tue, 09 Aug 2016 14:30:26 +0200', content: 'Current blood' }
-    - { stamp: 'Tue, 07 Aug 2016 13:58:29 +0200', content: '' }
-    - { stamp: 'Tue, 09 Aug 2016 13:57:47 +0200', content: 'Old blood' }
-    - { stamp: 'August 9th, 2016 12:08:08', content: 'First blood' }
