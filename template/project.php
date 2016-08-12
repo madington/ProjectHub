@@ -20,7 +20,7 @@
         <h1>
           <?= $project->name ?> Timeline
         </h1>
-        
+
         <?php if ($projectCount > 1) : ?>
         <a href="<?= $application->publicBaseUri ?>/">
             <button type="button" class="btn btn-primary btn-lg">
@@ -45,16 +45,10 @@
         <ol class="timeline">
             <?php foreach ($project->timeline as $note) : ?>
             <li class="timeline-node">
-                <form method="post" class="delete-note">
-                    <input type="hidden" name="action" value="delete-note">
-                    <input type="hidden" name="project" value="<?= $project->id ?>">
-                    <input type="hidden" name="task" value="<?= $note->stamp ?>">
-                    <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i>Delete task</button>
-                </form>
+                <button type="button" data-toggle="modal" data-target="#deleteNoteModal" data-id="<?=$note->id?>" class="btn btn-danger btn-sm delete-note"><i class="fa fa-trash"></i>Remove</button>
 
                 <div class="timeline-stamp">
                     <?= $note->stamp ?>
-                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteNoteModal" data-id="<?=$note->id?>">Remove</button>
                 </div>
                 <div class="timeline-content">
                     <?= $note->content ?>
@@ -146,10 +140,10 @@
                             <h4 class="modal-title" id="myModalLabel">Delete project</h4>
                         </div>
                         <div class="modal-body">
-                            <p>Are you 100% sure you want to delete the project? This action can not be undone 😮</p>
+                            <p>Are you 100% sure you want to delete the project?<br>This action can not be undone 😮</p>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-success" data-dismiss="modal">No, get me out of here</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">No, get me out of here</button>
                             <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i>Yes, delete it</button>
                         </div>
                     </form>
@@ -168,7 +162,7 @@
                             <h4 class="modal-title" id="myModalLabel">Delete project</h4>
                         </div>
                         <div class="modal-body">
-                            <p>Are you 100% sure you want to delete the note? This action can not be undone 😮</p>
+                            <p>Are you sure you want to delete the note?<br>This action can not be undone</p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">No, get me out of here</button>
