@@ -82,10 +82,19 @@ class ProjectModel extends ModelQuery
 
     public function compareDate($a, $b)
     {
-        if ($a->date == $b->date) {
+
+        if (!isset($a->date) && !isset($b->date)) {
+            $aDate = new \DateTime($a['stamp']);
+            $bDate = new \DateTime($b['stamp']);
+        }else {
+            $aDate = $a->date;
+            $bDate = $b->date;
+        }
+
+        if ($aDate == $bDate) {
             return 0;
         }
-        return ($a->date > $b->date) ? -1 : 1;
+        return ($aDate > $bDate) ? -1 : 1;
     }
 
     public function saveNote($data, $client, $project){
@@ -105,6 +114,7 @@ class ProjectModel extends ModelQuery
             }
 
             array_unshift($value['timeline'], $note);
+            uasort($value['timeline'], array($this, 'compareDate'));
             $yaml = Yaml::dump($value);
             file_put_contents($file, $yaml);
             return true;
