@@ -16,6 +16,7 @@
     </head>
     <body>
 
+        <header><img src="<?= $this->userInfo['picture'] ?>" id="avatar" alt="<?= $this->userInfo['name'] ?>" title="<?= $this->userInfo['name'] ?>">Logged in as: <?= $this->userInfo['name'] ?></header>
         <h1><img src="//firecracker.no/images/empefire-logo.png" alt="Firelabs logotyp" title="Firelabs logotyp"></h1>
         <h1>
           <?= $project->name ?> Timeline

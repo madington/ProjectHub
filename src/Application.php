@@ -21,6 +21,8 @@ class Application extends Factory
     public $userInfo = '';
     private $client = 'sandbox';
     public $role = '';
+    public $picture = '';
+    public $name = '';
 
     /* PUBLIC ACTION METHODS
      *************************************************************************/
@@ -38,7 +40,8 @@ class Application extends Factory
 
         $this->userInfo = $auth0->getUser();
 
-        echo '<header><img src="' . $this->userInfo['picture'] . '" id="avatar" alt="' . $this->userInfo['name'] . '" title="' . $this->userInfo['name'] . '">Logged in as: ' . $this->userInfo['name'] . '</header>';
+        $picture = $this->userInfo['picture'];
+        $name = $this->userInfo['name'];
 
         $this->role = print_r($this->userInfo['role'], 1);
 

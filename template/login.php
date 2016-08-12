@@ -26,8 +26,6 @@
     </script>
 </head>
 <body>
-
-	<h1><img src="//firecracker.no/images/empefire-logo.png" alt="Firelabs logotyp" title="Firelabs logotyp"></h1>
     <script type="text/javascript">
         lock.show();
     </script>

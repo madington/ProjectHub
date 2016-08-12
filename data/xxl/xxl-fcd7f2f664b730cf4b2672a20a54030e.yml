@@ -1,0 +1,10 @@
+name: Cool
+timeline:
+    2: { id: 560106f9f89952be7b156cf1956ef0d5, stamp: 'Thu, 11 Aug 2017 16:15:32 +0200', content: Cool, links: { '': '' } }
+    0: { id: a64ed03b9a08b4a178607094e2fac81e, stamp: 'Fri, 12 Aug 2016 12:08:13 +0200', content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', links: { '': '' } }
+    4: { id: f7902d8df275795b9b6518064eada1bd, stamp: 'Thu, 11 Aug 2016 15:37:39 +0200', content: 'Two links', links: { One: '', Two: '' } }
+    3: { id: 1309849898a322f0ff1977609b172d0b, stamp: 'Thu, 11 Aug 2016 15:37:39 +0200', content: 'Two links', links: { One: '', Two: '' } }
+    6: { id: de74fbfd126935d6d2831b449f6384e1, stamp: 'Thu, 11 Aug 2016 15:35:52 +0200', content: 'Fresh blood with links from yesterday', links: { Madington: madington.com, '': '' } }
+    7: { id: c891e2c1d7378dfe5e08147d8715aa3e, stamp: 'Thu, 11 Aug 2016 15:35:09 +0200', content: 'Fresh blood', links: { '': '' } }
+    8: { stamp: 'Thu, 11 Aug 2016 15:35:06 +0200', content: 'Project start' }
+    5: { id: 64977cf9ed1a89739a63e696a3b56cd6, stamp: 'Wed, 9 Aug 2016 15:36:44 +0200', content: oldest, links: { '': '' } }

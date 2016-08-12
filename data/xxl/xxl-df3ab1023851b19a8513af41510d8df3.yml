@@ -1,4 +1,0 @@
-name: Henrik
-timeline:
-    - { stamp: 'Thu, 11 Aug 2016 10:15:08 +0200', content: Test, links: { Cool: '', 'Cool 2': '' } }
-    - { stamp: 'Thu, 11 Aug 2016 10:15:07 +0200', content: 'Project start' }

@@ -15,9 +15,8 @@
 
     </head>
     <body>
-
+        <header><img src="<?= $this->userInfo['picture'] ?>" id="avatar" alt="<?= $this->userInfo['name'] ?>" title="<?= $this->userInfo['name'] ?>">Logged in as: <?= $this->userInfo['name'] ?></header>
         <h1><img src="//firecracker.no/images/empefire-logo.png" alt="Firelabs logotyp" title="Firelabs logotyp"></h1>
-        
         <?php if (!empty($role) && $role == 'admin') { ?>
         <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#saveProject">
             <i class="fa fa-plus"></i>New project
