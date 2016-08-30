@@ -23,6 +23,7 @@ class Application extends Factory
     public $role = '';
     public $picture = '';
     public $name = '';
+    public $advertiser = '';
 
     /* PUBLIC ACTION METHODS
      *************************************************************************/
@@ -51,8 +52,11 @@ class Application extends Factory
             die;
         }
 
-        if (isset($this->userInfo['app_metadata']['client'])) {
-            $this->client = $this->userInfo['app_metadata']['client'];
+        if (isset($_SESSION['auth0__user']['app_metadata']['current_client'])) {
+            $this->client = $_SESSION['auth0__user']['app_metadata']['current_client'];
+        } else if (isset($this->userInfo['app_metadata']['client'])) {
+            //$this->client = $this->userInfo['app_metadata']['client'];
+            $this->client = is_array($this->userInfo['app_metadata']['client']) ? $this->userInfo['app_metadata']['client'][0] : $this->userInfo['app_metadata']['client'];
         }
 
         // Routs
@@ -63,12 +67,14 @@ class Application extends Factory
                 $result = $this->saveNote($_POST);
             } else if ($_POST['action'] == 'delete-project') {
                 $result = $this->deleteProject($_POST, $config->get('redirect_uri'));
-            }else if ($_POST['action'] == 'delete-note') {
+            } else if ($_POST['action'] == 'delete-note') {
                 $result = $this->deleteNote($_POST);
             }
         } else if (isset($_GET['action'])) {
             if ($_GET['action'] == 'view-project') {
                 $result = $this->one($_GET['project']);
+            } else if ($_GET['action'] == 'switch') {
+                $result = $this->switchAdvertiser($_GET, $config->get('redirect_uri'));
             } else if ($_GET['action'] == 'logout') {
                 $auth0->logout();
                 session_destroy();
@@ -90,9 +96,12 @@ class Application extends Factory
         if (count($projectList) == 0) {
             $this->renderTutorial();
         } else if (count($projectList) == 1) {
+            /*
             foreach ($projectList as $key => $value) {
                 $this->renderProject($value, 1);
             }
+            */
+            $this->renderProjectList($projectList);
         } else {
             $this->renderProjectList($projectList);
         }
@@ -112,6 +121,8 @@ class Application extends Factory
 
     public function saveNote($data){
         $status = $this->newInstance('Project')->saveNote($data, $this->client, $data['project']);
+        //echo 'Data: ' . print_r($data, 1) . "<br>";
+        //echo 'Client: ' . $this->client . "<br>";
         if ($status) {
             return $this->one($data['project']);
         } else {
@@ -121,6 +132,8 @@ class Application extends Factory
 
     public function saveProject($data){
         $status = $this->newInstance('Project')->saveProject($data, $this->client);
+        //echo 'Data: ' . print_r($data, 1) . "<br>";
+        //echo 'Client: ' . $this->client . "<br>";
         if ($status) {
             return $this->all();
         } else {
@@ -142,26 +155,43 @@ class Application extends Factory
         }
     }
 
+    public function switchAdvertiser($data, $goto){
+        if (in_array($_GET['advertiser'], $_SESSION['auth0__user']['app_metadata']['client'])) {
+          $_SESSION['auth0__user']['app_metadata']['current_client'] = $_GET['advertiser'];
+          if (file_exists('data/' . $_SESSION['auth0__user']['app_metadata']['current_client'])) {} else {
+            mkdir('data/' . $_SESSION['auth0__user']['app_metadata']['current_client']);
+            //$this->saveProject(array('title' => 'First project'));
+            //$this->saveNote(array('project' => $_SESSION['auth0__user']['app_metadata']['client']));
+          }
+          //session_destroy();
+          //echo '<pre>' . print_r($_SESSION, 1) . '</pre>';
+        }
+        header("Location: " . $goto);
+        //echo ("" . $goto);
+    }
+
     /* PROTECTED METHODS
      *************************************************************************/
     public function renderProject($project, $projectCount)
     {
-        $this->render('project', array('project'=> $project, 'projectCount'=> $projectCount, 'role' => $this->role));
+        $this->render('project', array('project' => $project, 'projectCount' => $projectCount, 'role' => $this->role));
     }
 
     public function renderProjectList($projectList)
     {
-        $this->render('home', array('projectList'=> $projectList, 'role' => $this->role));
+        $this->render('home', array('projectList' => $projectList, 'role' => $this->role));
     }
 
     public function renderTutorial()
     {
-        $this->render('welcome');
+        $this->render('welcome', array('role' => $this->role));
+        //$this->render('home', array('role' => $this->role));
     }
 
     public function render404()
     {
         $this->render('404');
+        //$this->render('home', array('projectList' => $projectList, 'role' => $this->role));
     }
 
     public function renderLogin($redirectUri)
@@ -175,7 +205,7 @@ class Application extends Factory
         ob_start();
 
         $application = $this;
-        require(ROOT_PATH.'/template/' . $page . '.php');
+        require(ROOT_PATH . '/template/' . $page . '.php');
 
         $html = ob_get_contents();
         ob_end_clean();

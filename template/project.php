@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
 
-        <title><?= $project->name ?> Timeline</title>
+        <title>Firelabs - <?= $project->name ?></title>
 
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
@@ -15,38 +15,58 @@
 
     </head>
     <body>
+        
+        <div class="page-wrapper">
+        <header>
+      <?php include('header.php'); ?>
+        </header>
+    
+        
+        <section id="toolbar-container">
+            
+        <div class="toolbar">
 
-        <header><img src="<?= $this->userInfo['picture'] ?>" id="avatar" alt="<?= $this->userInfo['name'] ?>" title="<?= $this->userInfo['name'] ?>">Logged in as: <?= $this->userInfo['name'] ?></header>
-        <h1><img src="//firecracker.no/images/empefire-logo.png" alt="Firelabs logotyp" title="Firelabs logotyp"></h1>
-        <h1>
-          <?= $project->name ?> Timeline
-        </h1>
-
-        <?php if ($projectCount > 1) : ?>
-        <a href="<?= $application->publicBaseUri ?>/">
-            <button type="button" class="btn btn-primary btn-lg">
-                <i class="fa fa-chevron-left"></i>Show all projects
+        <?php if ($projectCount > 1 || 1 == 1) : ?>
+        <a href="<?= $application->publicBaseUri ?>/../">
+            <button class="btn btn-primary btn-lg glyphicon glyphicon-chevron-left">
+                <i class="fa fa-chevron-left"></i>Back
             </button>
         </a>
         <?php if (!empty($role) && $role == 'admin') { ?>
-        <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#saveNote">
+        <button class="btn btn-success btn-lg glyphicon glyphicon-plus" data-toggle="modal" data-target="#saveNote">
             <i class="fa fa-plus"></i>New note
         </button>
-        <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#deleteModal">
+        <button class="btn btn-danger btn-lg glyphicon glyphicon-trash" data-toggle="modal" data-target="#deleteModal">
             <i class="fa fa-trash"></i>Delete project
         </button>
         <?php } ?>
+      </a>
         <a href="?action=logout" id="logout">
-          <button type="button" class="btn btn-default btn-lg">
+          <button class="btn btn-default btn-lg glyphicon glyphicon-log-out">
               <i class="fa fa-sign-out"></i>Log out
           </button>
         </a>
+        
+        </div>
+        
+        </section>
+    
+    
+    <section id="timeline-container">
+        
+         <h1>
+          <?= $project->name ?>
+        </h1>
 
         <?php endif; ?>
         <ol class="timeline">
+            <?php if (count($project->timeline) == 0) { ?>
+              <li class="timeline-node">Nothing to show. Try again later. <i class="glyphicon glyphicon-time"></i></li>
+            <?php } ?>
             <?php foreach ($project->timeline as $note) : ?>
             <li class="timeline-node">
-                <button type="button" data-toggle="modal" data-target="#deleteNoteModal" data-id="<?=$note->id?>" class="btn btn-danger btn-sm delete-note"><i class="fa fa-trash"></i>Remove</button>
+                <div class="node-container">
+                <button data-toggle="modal" data-target="#deleteNoteModal" data-id="<?=$note->id?>" class="btn btn-danger btn-sm glyphicon glyphicon-trash delete-note"><i class="fa fa-trash"></i>Remove</button>
 
                 <div class="timeline-stamp">
                     <?= $note->stamp ?>
@@ -61,6 +81,14 @@
                     </a>
                     <?php endforeach; ?>
                 </div>
+                <?php if ($note->pid) { ?>
+                <div class="timeline-pid" style="font-size: 0.75em; margin-top: 1em;">
+                  <span class="label label-warning">
+                    <?= $note->pid ?>
+                  </span>
+                </div>
+                <?php } ?>
+                </div>
             </li>
             <?php endforeach; ?>
         </ol>
@@ -70,7 +98,7 @@
                 <div class="modal-content">
                     <form action="" method="post" class="form-horizontal save">
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <button class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title" id="myModalLabel">Add a note</h4>
                         </div>
                         <div class="modal-body">
@@ -89,6 +117,12 @@
                                         <input type="text" name="content" class="form-control">
                                     </div>
                                   </div>
+                                  <div class="form-group">
+                                     <label class="col-sm-2 control-label">ID</label>
+                                     <div class="col-sm-10">
+                                         <input type="text" name="pid" class="form-control">
+                                     </div>
+                                   </div>
 
                                   <div id="sections">
                                       <div class="section">
@@ -108,7 +142,7 @@
 
                                         <div class="col-sm-3">
                                           <a href="#" class="remove">
-                                              <button type="button" class="btn btn-danger"><i class="fa fa-trash"></i>Remove</button>
+                                              <button class="btn btn-danger glyphicon glyphicon-trash"><i class="fa fa-trash"></i>Remove</button>
                                           </a>
                                         </div>
                                       </div>
@@ -116,14 +150,14 @@
                                   </div>
                                   <div>
                                     <a href="#" class="addsection">
-                                        <button type="button" class="btn btn-success"><i class="fa fa-plus"></i>Add Link</button>
+                                        <button class="btn btn-success glyphicon glyphicon-plus"><i class="fa fa-plus"></i>Add Link</button>
                                     </a>
                                   </div>
                         </div>
                         <div class="col-xs-12 modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i>Close</button>
-                            <button type="reset" class="btn btn-default"><i class="fa fa-ban"></i>Reset</button>
-                            <button type="submit" class="btn btn-success"><i class="fa fa-check"></i>Save</button>
+                            <button class="btn btn-default glyphicon glyphicon-remove" data-dismiss="modal"><i class="fa fa-times"></i>Close</button>
+                            <button type="reset" class="btn btn-default glyphicon glyphicon-ban-circle"><i class="fa fa-ban"></i>Reset</button>
+                            <button type="submit" class="btn btn-success glyphicon glyphicon-ok"><i class="fa fa-check"></i>Save</button>
                         </div>
                     </form>
                 </div>
@@ -137,15 +171,15 @@
                         <input type="hidden" name="action" value="delete-project">
                         <input type="hidden" name="project" value="<?= $project->id ?>">
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <button class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title" id="myModalLabel">Delete project</h4>
                         </div>
                         <div class="modal-body">
                             <p>Are you 100% sure you want to delete the project?<br>This action can not be undone 😮</p>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">No, get me out of here</button>
-                            <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i>Yes, delete it</button>
+                            <button class="btn btn-default" data-dismiss="modal">No, get me out of here</button>
+                            <button type="submit" class="btn btn-danger">Yes, delete it</button>
                         </div>
                     </form>
                 </div>
@@ -159,20 +193,31 @@
                         <input type="hidden" name="project" value="<?= $project->id ?>">
                         <input type="hidden" name="id" value="">
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <button class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title" id="myModalLabel">Delete project</h4>
                         </div>
                         <div class="modal-body">
                             <p>Are you sure you want to delete the note?<br>This action can not be undone</p>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">No, get me out of here</button>
+                            <button class="btn btn-default" data-dismiss="modal">No, get me out of here</button>
                             <button type="submit" class="btn btn-danger">Yes, delete it</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+        
+        </section>
+        
+         <div class="push"></div>
+        
+        </div>
+    
+        <footer>
+        <?php include('footer.php'); ?>
+        </footer>
+        
         <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
         <script src="<?= $application->publicBaseUri ?>/js/app.js"></script>

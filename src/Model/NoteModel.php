@@ -14,6 +14,7 @@ class NoteModel extends FlatModel
     {
         return array(
             'id',
+            'pid',
             'date',
             'stamp',
             'content',

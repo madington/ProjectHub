@@ -18,6 +18,7 @@ class ProjectModel extends ModelQuery
     protected function initSchema()
     {
         return array(
+            'pid',
             'date',
             'stamp',
             'name',
@@ -66,9 +67,15 @@ class ProjectModel extends ModelQuery
     {
         $store = new SessionStore();
         $user = $store->get('user');
-        $client = (isset($user['app_metadata']['client'])) ? $user['app_metadata']['client'] : 'sandbox';
+        if (isset($_SESSION['auth0__user']['app_metadata']['current_client'])) {
+          $client = $_SESSION['auth0__user']['app_metadata']['current_client'];
+        } else if (isset($user['app_metadata']['client'])) {
+          $client = is_array($user['app_metadata']['client']) ? $user['app_metadata']['client'][0] : $user['app_metadata']['client'];
+        } else {
+          $client = 'sandbox';
+        }
         $provider = (new Provider)
-            ->setFolder(__DIR__ . '/../../data/'.$client)
+            ->setFolder(__DIR__ . '/../../data/' . $client)
             ->setIdField('name');
         return $provider;
     }
@@ -98,11 +105,12 @@ class ProjectModel extends ModelQuery
     }
 
     public function saveNote($data, $client, $project){
-        $file = __DIR__ . '/../../data/'.$client.'/'.$project.'.yml';
+        $file = __DIR__ . '/../../data/' . $client . '/' . $project . '.yml';
         try {
             $value = Yaml::parse(file_get_contents($file));
             $note = array(
                 'id' => md5(microtime(true)),
+                'pid' => $data['pid'],
                 'stamp' => $data['stamp'],
                 'content' => $data['content'],
             );
@@ -123,9 +131,9 @@ class ProjectModel extends ModelQuery
             return false;
         }
     }
-
+    
     public function deleteNote($id, $client, $project){
-        $file = __DIR__ . '/../../data/'.$client.'/'.$project.'.yml';
+        $file = __DIR__ . '/../../data/' . $client . '/' . $project . '.yml';
         try {
             $value = Yaml::parse(file_get_contents($file));
             $value['timeline'] = array_filter($value['timeline'], function($v, $k) use ($id){
@@ -141,7 +149,7 @@ class ProjectModel extends ModelQuery
     }
 
     public function saveProject($data, $client){
-        $file = __DIR__ . '/../../data/'.$client.'/'.$client. '-'. md5(microtime(true)) . '.yml';
+        $file = __DIR__ . '/../../data/' . $client . '/' . $client .  '-'. md5(microtime(true)) . '.yml';
         $content = array('name' => $data['title'], 'timeline' => array(array('stamp' => date('r'), 'content' => 'Project start')));
 
         try {
@@ -155,7 +163,7 @@ class ProjectModel extends ModelQuery
     }
 
     public function deleteProject($p, $client){
-        $file = __DIR__ . '/../../data/'.$client.'/'. $p . '.yml';
+        $file = __DIR__ . '/../../data/' . $client . '/'. $p . '.yml';
 
         try {
             unlink($file);
