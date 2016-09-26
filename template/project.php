@@ -72,7 +72,10 @@
                     <?= $note->stamp ?>
                 </div>
                 <div class="timeline-content">
-                    <?= $note->content ?>
+                    <h3><?= $note->content ?></h3>
+                </div>
+                <div class="timeline-descripton">
+                    <?= $note->description ?>
                 </div>
                 <div class="timeline-links">
                     <?php foreach ($note->links as $label => $href) : ?>
@@ -81,13 +84,6 @@
                     </a>
                     <?php endforeach; ?>
                 </div>
-                <?php if ($note->pid) { ?>
-                <div class="timeline-pid" style="font-size: 0.75em; margin-top: 1em;">
-                  <span class="label label-warning">
-                    <?= $note->pid ?>
-                  </span>
-                </div>
-                <?php } ?>
                 </div>
             </li>
             <?php endforeach; ?>
@@ -117,12 +113,12 @@
                                         <input type="text" name="content" class="form-control">
                                     </div>
                                   </div>
-                                  <div class="form-group">
-                                     <label class="col-sm-2 control-label">ID</label>
-                                     <div class="col-sm-10">
-                                         <input type="text" name="pid" class="form-control">
-                                     </div>
-                                   </div>
+                                 <div class="form-group">
+                                    <label class="col-sm-2 control-label">Content</label>
+                                    <div class="col-sm-10">
+                                        <textarea name="description" class="form-control"></textarea>
+                                    </div>
+                                  </div>
 
                                   <div id="sections">
                                       <div class="section">

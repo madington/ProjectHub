@@ -59,6 +59,11 @@
                 <div class="timeline-content">
                     <a href="?action=view-project&project=<?= $project->id ?>"><?= $project->name ?></a>
                 </div>
+                <div class="timeline-pid" style="font-size: 0.75em; margin-top: 1em;">
+                  <span class="label label-primary">
+                    <?= $project->pid ?>
+                  </span>
+                </div>
                 </div>
             </li>
             <?php endforeach; ?>
@@ -74,10 +79,25 @@
                             <h4 class="modal-title" id="myModalLabel">Add a project</h4>
                         </div>
                         <div class="modal-body">
+							<div class="alert alert-danger no-title" role="alert" style="display: none">
+							  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+							  <span class="sr-only">Error:</span>
+							  Enter a title
+							</div>
+							<div class="alert alert-danger no-id" role="alert" style="display: none">
+							  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+							  <span class="sr-only">Error:</span>
+							  Enter a valid project ID
+							</div>
                             <div class="form-group">
                                 <label for="new-project" class="control-label">Name of the new project</label>
                                 <input type="text" name="title" class="form-control" id="new-project">
                             </div>
+                            <div class="form-group">
+                              <label class="control-label">ID</label>
+                              <input type="number" name="pid" class="form-control" pattern="\d*" required>
+                            </div>
+
                         </div>
                         <div class="modal-footer">
                             <button class="btn btn-default glyphicon glyphicon-remove" data-dismiss="modal"><i class="fa fa-times"></i>Close</button>

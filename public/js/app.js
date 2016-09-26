@@ -10,9 +10,17 @@ function confirmation(event, text) {
 $(document).ready(function () {
   $("form.save").submit(function(event) {
     if ($('input[name="title"], input[name="content"]').val().length == 0) {
-      alert('Skriv in en titel');
+	  $('.modal .no-title').css('display', 'block');
       event.preventDefault();
-    }
+    } else {
+	  $('.modal .no-title').css('display', 'none');
+	}
+    if ($('input[name="pid"]').val().length == 0) {
+	  	$('.modal .no-id').css('display', 'block');
+        event.preventDefault();
+    } else {
+	  $('.modal .no-id').css('display', 'none');
+	}
   });
 });
 

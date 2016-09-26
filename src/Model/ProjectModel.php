@@ -18,6 +18,7 @@ class ProjectModel extends ModelQuery
     protected function initSchema()
     {
         return array(
+            'description',
             'pid',
             'date',
             'stamp',
@@ -110,6 +111,7 @@ class ProjectModel extends ModelQuery
             $value = Yaml::parse(file_get_contents($file));
             $note = array(
                 'id' => md5(microtime(true)),
+                'description' => $data['description'],
                 'pid' => $data['pid'],
                 'stamp' => $data['stamp'],
                 'content' => $data['content'],
@@ -150,7 +152,7 @@ class ProjectModel extends ModelQuery
 
     public function saveProject($data, $client){
         $file = __DIR__ . '/../../data/' . $client . '/' . $client .  '-'. md5(microtime(true)) . '.yml';
-        $content = array('name' => $data['title'], 'timeline' => array(array('stamp' => date('r'), 'content' => 'Project start')));
+        $content = array('pid' => $data['pid'], 'name' => $data['title'], 'timeline' => array(array('stamp' => date('r'), 'content' => 'Project start')));
 
         try {
             $yaml = Yaml::dump($content);

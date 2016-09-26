@@ -13,8 +13,8 @@ class NoteModel extends FlatModel
     protected function initSchema()
     {
         return array(
+            'description',
             'id',
-            'pid',
             'date',
             'stamp',
             'content',
