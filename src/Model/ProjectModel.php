@@ -112,7 +112,7 @@ class ProjectModel extends ModelQuery
             $note = array(
                 'id' => md5(microtime(true)),
                 'description' => $data['description'],
-                'pid' => $data['pid'],
+                //'pid' => $data['pid'],
                 'stamp' => $data['stamp'],
                 'content' => $data['content'],
             );

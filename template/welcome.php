@@ -26,7 +26,12 @@
               <i class="fa fa-sign-out"></i>Log out
           </button>
         </a>
+		<h1>Velkommen til Firelabs.no</h1>
 
+		<p>Din konto venter på godkjenning av administrator.<br>
+		Du vil om kort tid kunne logge inn med din nye bruker.</p>
+
+		<p>Kontakt <a href="mailto:accounts@empefire.no">accounts@empefire.no</a> dersom du har spørsmål.</p>
         <div class="modal fade" id="saveProject" tabindex="-1" role="dialog" aria-labelledby="saveProject">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">

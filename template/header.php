@@ -4,7 +4,7 @@
     
 <div class="user">
 <img src="<?= $this->userInfo['picture'] ?>" id="avatar" alt="<?= $this->userInfo['name'] ?>" title="<?= $this->userInfo['name'] ?>"><?= $this->userInfo['name'] ?>
-  <?php if (is_array($_SESSION['auth0__user']['app_metadata']['client'])) { ?> for
+  <?php if (isset($_SESSION['auth0__user']['app_metadata']['client']) && is_array($_SESSION['auth0__user']['app_metadata']['client'])) { ?> for
     <select name="account" class="form-control selectpicker" onchange="window.location='?action=switch&advertiser=' + this.options[this.selectedIndex].value" style="display: inline-block; width: auto">
       <?php
       $old_accounts = array('expert', 'firecracker', 'power', 'rio', 'sticky-fingers', 'xxl');
